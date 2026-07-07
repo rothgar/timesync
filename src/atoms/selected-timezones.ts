@@ -131,9 +131,18 @@ export const syncUrlToSelectedTimezonesAtom = atom(
 // the first timezone will always be HOME, and "diffHoursFromHome" will be re-caculated base on HOME
 export const homeSelectedTimezonesAtom = atom((get) => {
   const firstTimezoneName = get(readWriteUrlTimezonesNameAtom)[0];
+  const currentTimezoneName = getCurrentUserTimezoneName();
+
   const timezone =
     get(selectedTimezonesAtom)[0] ||
-    timezonesMap.get(firstTimezoneName || getCurrentUserTimezoneName());
+    timezonesMap.get(firstTimezoneName) ||
+    timezonesMap.get(currentTimezoneName) ||
+    timezonesMap.get("UTC") ||
+    timezonesMap.values().next().value;
+
+  if (!timezone) {
+    throw new Error("No timezone available");
+  }
 
   return timezone;
 });
