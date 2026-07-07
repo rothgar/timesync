@@ -13,10 +13,6 @@ permissions:
   attestations: write
   id-token: write
 
-# Lower-cased once so every step uses a sanitized image name.
-env:
-  IMAGE_NAME: ${{ lower(github.repository) }}
-
 jobs:
   build-check:
     name: Lint and Build
@@ -63,7 +59,10 @@ jobs:
 
       - name: Compute image tags
         id: meta
+        env:
+          REPO: ${{ github.repository }}
         run: |
+          IMAGE_NAME="${REPO,,}"
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
             VERSION="${GITHUB_REF_NAME#v}"
             {
