@@ -28,7 +28,7 @@ export function useSearchedTimezones(): ITimezone[] {
       .slice(0, 10);
 
     setFilteredTimezones(fusedTimezones);
-  }, [deferredSearch, timezones]);
+  }, [deferredSearch, timezones]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useUpdateTimezonesClock(setFilteredTimezones);
 

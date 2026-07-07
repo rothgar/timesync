@@ -45,7 +45,7 @@ function calMeetingHoursThreshold(
   timeDials: ITimeDial[],
   timeWindowIndex: { start: number; end: number }
 ) {
-  let meetingHours: IMeetingHoursThreshold = {
+  const meetingHours: IMeetingHoursThreshold = {
     hour12: {
       start: [],
       end: [],
@@ -127,9 +127,11 @@ export default function TimeWindow({
 
   function stopTimeWindow() {
     setIsStopTimeWindow(!isStopTimeWindow);
-    frameWidth === DEFAULT_WINDOW_WIDTH
-      ? setFrameWidth(frameWidth / 2)
-      : setFrameWidth(DEFAULT_WINDOW_WIDTH);
+    if (frameWidth === DEFAULT_WINDOW_WIDTH) {
+      setFrameWidth(frameWidth / 2);
+    } else {
+      setFrameWidth(DEFAULT_WINDOW_WIDTH);
+    }
     setIsBlockClicked(false);
 
     const startIndex = getIndexOfLeftTimeDial();
@@ -177,7 +179,7 @@ export default function TimeWindow({
         return tz;
       });
     });
-  }, [isStopTimeWindow, frameWidth, isBlockClicked]);
+  }, [isStopTimeWindow, frameWidth, isBlockClicked]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleMouseDown(event: React.MouseEvent) {
     stopTimeWindow();
@@ -215,9 +217,14 @@ export default function TimeWindow({
   }
 
   function handleMouseMoveOnTimeWindow(e: React.MouseEvent) {
-    const timeWindowX = timeWindowDivRef.current?.getBoundingClientRect().x!;
-    const dX = e.clientX - timeWindowX;
-    dX <= 17 ? setSidesOfTimeWindow("left") : setSidesOfTimeWindow("right");
+    const rect = timeWindowDivRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const dX = e.clientX - rect.x;
+    if (dX <= 17) {
+      setSidesOfTimeWindow("left");
+    } else {
+      setSidesOfTimeWindow("right");
+    }
   }
 
   return (

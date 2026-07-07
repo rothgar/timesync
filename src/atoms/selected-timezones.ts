@@ -87,7 +87,7 @@ export const syncUrlToSelectedTimezonesAtom = atom(
   null,
   (get, set, timezonesName: string[] = []) => {
     const selectedDate = get(readWriteSelectedDateAtom);
-    let homeSelectedTimezone = get(homeSelectedTimezonesAtom);
+    const homeSelectedTimezone = get(homeSelectedTimezonesAtom);
     homeSelectedTimezone.date = selectedDate;
 
     const dialColor = get(dialColorWithLocalStorageAtom);

@@ -41,7 +41,7 @@ export default function TimeSelectionOverlay() {
     const hour24 = getHoursFromTimeString(homeSelectedTimezone.hour24);
 
     if (homeSelectedTimezone && homeSelectedTimezone.timeDials.length) {
-      let timeDialIndex = homeSelectedTimezone.timeDials.findIndex(
+      const timeDialIndex = homeSelectedTimezone.timeDials.findIndex(
         (td) => td.hour24 === hour24
       );
 
@@ -53,6 +53,7 @@ export default function TimeSelectionOverlay() {
 
   useEffect(() => {
     moveTimeWindowBarToHomeHours();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [homeSelectedTimezone.timeDials, urlTimeWindowIndexes]);
 
   useEffect(() => {
@@ -60,6 +61,7 @@ export default function TimeSelectionOverlay() {
       const { x, y } = parentRef.current.getBoundingClientRect();
       setParentsPosition({ x, y });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.innerWidth]);
 
   function handleMouseMove(e: React.MouseEvent) {

@@ -18,7 +18,7 @@ export default function DatePicker() {
     if (!foundDate) {
       setDates();
     }
-  }, [dates]);
+  }, [dates]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="text-xs flex gap-2">

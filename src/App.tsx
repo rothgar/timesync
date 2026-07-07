@@ -32,7 +32,7 @@ function App() {
     syncUrlToSelectedTimezones(urlTimezonesName);
 
     return () => clearTimeout(timeoutId);
-  }, [urlTimezonesName]);
+  }, [urlTimezonesName]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function resetStatesOnOuterClick(e: MouseEvent) {
     if (

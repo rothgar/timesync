@@ -55,7 +55,7 @@ export function useUpdateTimezonesClock(
 
       return newTimezones;
     });
-  }, [selectedDate]);
+  }, [selectedDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const requiredIntervalToBeAMinute =
@@ -75,7 +75,7 @@ export function useUpdateTimezonesClock(
   }, [setTimezonesClockCb]);
 }
 
-type SetAtom<Args extends any[], Result> = (...args: Args) => Result;
+type SetAtom<Args extends unknown[], Result> = (...args: Args) => Result;
 
 export function useSelectedTimezones(): [
   ITimezone[],
@@ -105,7 +105,7 @@ export function useSelectedTimezones(): [
         return { ...tz, timeDials };
       });
     });
-  }, [dialColor]);
+  }, [dialColor]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return [selectedTimezones, setSelectedTimezones];
 }
