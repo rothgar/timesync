@@ -16,6 +16,11 @@ export function useSearchedTimezones(): ITimezone[] {
   );
 
   useEffect(() => {
+    if (!deferredSearch) {
+      setFilteredTimezones([]);
+      return;
+    }
+
     const fusedTimezones = new Fuse(timezones, {
       keys: ["name", "abbr", "value"],
     })
