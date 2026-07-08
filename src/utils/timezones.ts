@@ -156,7 +156,7 @@ export function getTimeDials(
   const hours = arrayRange(0, 23);
 
   let td = [] as ITimeDial[];
-  if (isHome || !homeSelectedTimezone) {
+  if (isHome || !homeSelectedTimezone || !homeSelectedTimezone.timeDials.length) {
     // home
     td = createHomeTimeDials(hours, dialColor, timezone);
   } else {
