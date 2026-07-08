@@ -6,7 +6,7 @@ import MeetingMinutes from "./MeetingMinutes";
 
 export default function Controller() {
   return (
-    <div className="primary_bg primary_border rounded-md p-[4px] h-full grid grid-cols-[340px_1fr]">
+    <div className="flex-1 primary_bg primary_border rounded-md p-[4px] h-full grid grid-cols-[340px_1fr]">
       <div className="grid grid-cols-[1fr_160px]">
         <div className="flex h-full items-center gap-2 ">
           <HoursFormatBtn />
