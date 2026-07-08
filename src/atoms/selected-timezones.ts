@@ -92,9 +92,19 @@ export const syncUrlToSelectedTimezonesAtom = atom(
 
     const dialColor = get(dialColorWithLocalStorageAtom);
 
-    const timezones = timezonesName.map((name, index) => {
-      const timezone = timezonesMap.get(name) as ITimezone;
+    const validTimezones = timezonesName
+      .map((name) => timezonesMap.get(name))
+      .filter((tz): tz is ITimezone => !!tz);
 
+    if (!validTimezones.length) {
+      validTimezones.push(
+        timezonesMap.get(getCurrentUserTimezoneName()) ||
+          timezonesMap.get("UTC") ||
+          timezonesMap.values().next().value!
+      );
+    }
+
+    const timezones = validTimezones.map((timezone, index) => {
       timezone.diffHoursFromHome = getDifferenceHoursFromHome(
         timezone.name,
         homeSelectedTimezone.name

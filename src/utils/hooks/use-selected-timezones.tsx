@@ -28,7 +28,7 @@ export function useUpdateTimezonesClock(
   useEffect(() => {
     setTimezonesClockCb((prevTimezones) => {
       let home = homeSelectedTimezone;
-      const newTimezones = prevTimezones.map((tz, index) => {
+      const newTimezones = prevTimezones.filter((tz): tz is ITimezone => !!tz).map((tz, index) => {
         if (index === 0) {
           tz.date = selectedDate;
           tz.timeDials = home.timeDials.map((td) => {
@@ -63,7 +63,7 @@ export function useUpdateTimezonesClock(
 
     const intervalId = setInterval(() => {
       setTimezonesClockCb((tzs) =>
-        tzs.map((tz) => ({
+        tzs.filter((tz): tz is ITimezone => !!tz).map((tz) => ({
           ...tz,
           hour12: currentTime(tz.name, "hour12"),
           hour24: currentTime(tz.name, "hour24"),
@@ -90,7 +90,7 @@ export function useSelectedTimezones(): [
 
   useEffect(() => {
     setSelectedTimezones((prevTimezones) => {
-      return prevTimezones.map((tz) => {
+      return prevTimezones.filter((tz): tz is ITimezone => !!tz).map((tz) => {
         const timeDials = tz.timeDials.map((td) => {
           return {
             ...td,
