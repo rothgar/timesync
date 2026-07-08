@@ -104,6 +104,16 @@ export const syncUrlToSelectedTimezonesAtom = atom(
       );
     }
 
+    // The reference/home timezone used by getTimeDials may come from the map
+    // with an empty timeDials array. Populate it before non-home timezones try
+    // to index into it.
+    homeSelectedTimezone.timeDials = getTimeDials(
+      homeSelectedTimezone,
+      dialColor,
+      homeSelectedTimezone,
+      true
+    );
+
     const timezones = validTimezones.map((timezone, index) => {
       timezone.diffHoursFromHome = getDifferenceHoursFromHome(
         timezone.name,
